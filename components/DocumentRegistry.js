@@ -187,36 +187,36 @@ export default function DocumentRegistry({ contract, account, provider }) {
 
     return (
         <div style={{ marginTop: '2rem' }}>
-            {/* Mensagens */}
+            {/* Messages */}
             {message && (
                 <div className={`alert alert-${messageType}`}>
                     {message}
                 </div>
             )}
 
-            {/* Registro de Documento */}
+            {/* Document Registration */}
             <div className="card">
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                    📝 Registrar Documento
+                    📝 Register Document
                 </h2>
 
                 <div style={{ display: 'grid', gap: '1rem', marginBottom: '1rem' }}>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                            Nome do Documento:
+                            Document Name:
                         </label>
                         <input
                             type="text"
                             className="input-field"
                             value={documentName}
                             onChange={(e) => setDocumentName(e.target.value)}
-                            placeholder="Ex: Contrato de Prestação de Serviços"
+                            placeholder="e.g.: Service Agreement Contract"
                         />
                     </div>
 
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                            Arquivo:
+                            File:
                         </label>
                         <input
                             id="file-input"
@@ -225,7 +225,7 @@ export default function DocumentRegistry({ contract, account, provider }) {
                             onChange={(e) => setSelectedFile(e.target.files[0])}
                         />
                         <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.25rem' }}>
-                            O hash do arquivo será calculado e registrado na blockchain
+                            The file hash will be calculated and registered on the blockchain
                         </p>
                     </div>
                 </div>
@@ -236,14 +236,14 @@ export default function DocumentRegistry({ contract, account, provider }) {
                     disabled={registering || !documentName || !selectedFile}
                     style={{ opacity: (registering || !documentName || !selectedFile) ? 0.6 : 1 }}
                 >
-                    {registering ? 'Registrando...' : 'Registrar Documento'}
+                    {registering ? 'Registering...' : 'Register Document'}
                 </button>
             </div>
 
-            {/* Consulta de Documento */}
+            {/* Document Search */}
             <div className="card">
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                    🔍 Consultar Documento
+                    🔍 Search Document
                 </h2>
 
                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
@@ -252,11 +252,11 @@ export default function DocumentRegistry({ contract, account, provider }) {
                         className="input-field"
                         value={searchHash}
                         onChange={(e) => setSearchHash(e.target.value)}
-                        placeholder="Cole o hash do documento aqui"
+                        placeholder="Paste the document hash here"
                         style={{ flex: 1, minWidth: '300px' }}
                     />
                     <button onClick={searchDocument} className="btn-secondary">
-                        Consultar
+                        Search
                     </button>
                 </div>
 
@@ -265,48 +265,48 @@ export default function DocumentRegistry({ contract, account, provider }) {
                         {searchResult.exists ? (
                             <div>
                                 <h3 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
-                                    ✅ Documento Encontrado
+                                    ✅ Document Found
                                 </h3>
-                                <p><strong>Nome:</strong> {searchResult.name}</p>
-                                <p><strong>Proprietário:</strong> {searchResult.owner}</p>
-                                <p><strong>Registrado em:</strong> {searchResult.timestamp}</p>
+                                <p><strong>Name:</strong> {searchResult.name}</p>
+                                <p><strong>Owner:</strong> {searchResult.owner}</p>
+                                <p><strong>Registered on:</strong> {searchResult.timestamp}</p>
                                 <p><strong>Hash:</strong> {searchResult.hash}</p>
                             </div>
                         ) : (
                             <div>
                                 <h3 style={{ fontWeight: '600', color: '#dc2626', marginBottom: '0.5rem' }}>
-                                    ❌ Documento Não Encontrado
+                                    ❌ Document Not Found
                                 </h3>
-                                <p>Este documento não está registrado na blockchain.</p>
+                                <p>This document is not registered on the blockchain.</p>
                             </div>
                         )}
                     </div>
                 )}
             </div>
 
-            {/* Transferência de Documento */}
+            {/* Document Transfer */}
             <div className="card">
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                    🔄 Transferir Documento
+                    🔄 Transfer Document
                 </h2>
 
                 <div style={{ display: 'grid', gap: '1rem', marginBottom: '1rem' }}>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                            Hash do Documento:
+                            Document Hash:
                         </label>
                         <input
                             type="text"
                             className="input-field"
                             value={transferHash}
                             onChange={(e) => setTransferHash(e.target.value)}
-                            placeholder="Hash do documento a ser transferido"
+                            placeholder="Hash of the document to be transferred"
                         />
                     </div>
 
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-                            Endereço de Destino:
+                            Destination Address:
                         </label>
                         <input
                             type="text"
@@ -324,25 +324,25 @@ export default function DocumentRegistry({ contract, account, provider }) {
                     disabled={transferring || !transferHash || !transferAddress}
                     style={{ opacity: (transferring || !transferHash || !transferAddress) ? 0.6 : 1 }}
                 >
-                    {transferring ? 'Transferindo...' : 'Transferir Propriedade'}
+                    {transferring ? 'Transferring...' : 'Transfer Ownership'}
                 </button>
             </div>
 
-            {/* Meus Documentos */}
+            {/* My Documents */}
             <div className="card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                     <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
-                        📚 Meus Documentos ({documents.length})
+                        📚 My Documents ({documents.length})
                     </h2>
                     <button onClick={loadUserDocuments} className="btn-secondary" disabled={loading}>
-                        {loading ? 'Carregando...' : 'Atualizar'}
+                        {loading ? 'Loading...' : 'Refresh'}
                     </button>
                 </div>
 
                 {loading ? (
-                    <p>Carregando documentos...</p>
+                    <p>Loading documents...</p>
                 ) : documents.length === 0 ? (
-                    <p style={{ color: '#6b7280' }}>Você ainda não possui documentos registrados.</p>
+                    <p style={{ color: '#6b7280' }}>You don't have any registered documents yet.</p>
                 ) : (
                     <div style={{ display: 'grid', gap: '1rem' }}>
                         {documents.map((doc, index) => (
@@ -352,7 +352,7 @@ export default function DocumentRegistry({ contract, account, provider }) {
                                     <strong>Hash:</strong> {doc.hash}
                                 </p>
                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.25rem' }}>
-                                    <strong>Registrado em:</strong> {doc.timestamp}
+                                    <strong>Registered on:</strong> {doc.timestamp}
                                 </p>
                                 <div style={{ marginTop: '0.5rem' }}>
                                     <button
@@ -360,14 +360,14 @@ export default function DocumentRegistry({ contract, account, provider }) {
                                         className="btn-secondary"
                                         style={{ marginRight: '0.5rem', fontSize: '0.875rem', padding: '0.25rem 0.5rem' }}
                                     >
-                                        Copiar Hash
+                                        Copy Hash
                                     </button>
                                     <button
                                         onClick={() => setTransferHash(doc.hash)}
                                         className="btn-danger"
                                         style={{ fontSize: '0.875rem', padding: '0.25rem 0.5rem' }}
                                     >
-                                        Transferir
+                                        Transfer
                                     </button>
                                 </div>
                             </div>

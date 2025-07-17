@@ -35,22 +35,22 @@ export default function Home() {
                 setAccount(accounts[0]);
                 setIsConnected(true);
 
-                // Configurar contrato se o endereço estiver disponível
+                // Configure contract if address is available
                 if (contractAddress) {
                     const contract = new ethers.Contract(contractAddress, contractABI, signer);
                     setContract(contract);
                 }
 
-                // Verificar rede
+                // Check network
                 const network = await provider.getNetwork();
                 if (network.chainId !== 80001n) { // Mumbai testnet
                     try {
                         await window.ethereum.request({
                             method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0x13881' }], // 80001 em hex
+                            params: [{ chainId: '0x13881' }], // 80001 in hex
                         });
                     } catch (switchError) {
-                        // Se a rede não estiver adicionada, adicionar
+                        // If network is not added, add it
                         if (switchError.code === 4902) {
                             await window.ethereum.request({
                                 method: 'wallet_addEthereumChain',
@@ -70,11 +70,11 @@ export default function Home() {
                     }
                 }
             } else {
-                alert('MetaMask não detectado! Por favor, instale a extensão MetaMask.');
+                alert('MetaMask not detected! Please install the MetaMask extension.');
             }
         } catch (error) {
-            console.error('Erro ao conectar carteira:', error);
-            alert('Erro ao conectar carteira. Verifique o console para mais detalhes.');
+            console.error('Error connecting wallet:', error);
+            alert('Error connecting wallet. Check console for more details.');
         }
     };
 
@@ -87,7 +87,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        // Verificar se já estava conectado
+        // Check if already connected
         const checkConnection = async () => {
             if (typeof window.ethereum !== 'undefined') {
                 const provider = new ethers.BrowserProvider(window.ethereum);
@@ -105,11 +105,11 @@ export default function Home() {
             <div className="container mx-auto px-4 py-8">
                 <header className="text-center mb-12">
                     <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                        📄 Registro de Documentos Blockchain
+                        📄 Blockchain Document Registry
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Demonstração de registro seguro e imutável de documentos usando smart contracts
-                        na blockchain Polygon Mumbai (testnet gratuita)
+                        Demonstration of secure and immutable document registration using smart contracts
+                        on the Polygon Mumbai blockchain (free testnet)
                     </p>
                 </header>
 
@@ -129,17 +129,17 @@ export default function Home() {
                         />
                     ) : isConnected && !contractAddress ? (
                         <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6">
-                            <p className="font-semibold">⚠️ Contrato não configurado</p>
-                            <p>O endereço do contrato não foi configurado. Execute o deploy primeiro e configure a variável NEXT_PUBLIC_CONTRACT_ADDRESS no arquivo .env</p>
+                            <p className="font-semibold">⚠️ Contract not configured</p>
+                            <p>The contract address is not configured. Deploy the contract first and set the NEXT_PUBLIC_CONTRACT_ADDRESS variable in the .env file</p>
                         </div>
                     ) : null}
                 </div>
 
                 <footer className="text-center mt-16 text-gray-500">
-                    <p>Demonstração educacional - Blockchain Document Registry</p>
+                    <p>Educational demonstration - Blockchain Document Registry</p>
                     <p className="text-sm mt-2">
-                        Rede: Polygon Mumbai Testnet |
-                        Tokens MATIC gratuitos: <a href="https://faucet.polygon.technology/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Polygon Faucet</a>
+                        Network: Polygon Mumbai Testnet |
+                        Free MATIC tokens: <a href="https://faucet.polygon.technology/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Polygon Faucet</a>
                     </p>
                 </footer>
             </div>
