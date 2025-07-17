@@ -2,6 +2,12 @@
 
 Demonstração de registro seguro e imutável de documentos usando smart contracts na blockchain Polygon Mumbai (testnet gratuita).
 
+## 📚 Documentação
+
+- 📖 **[README.md](./README.md)** - Documentação principal do projeto
+- 🦊 **[GuideForMetaMask.md](./GuideForMetaMask.md)** - Guia completo MetaMask para desenvolvimento
+- 🚀 **[QUICKSTART.md](./QUICKSTART.md)** - Início rápido e checklist
+
 ## 🎯 Funcionalidades
 
 - ✅ **Registro de Documentos**: Calcule o hash SHA-256 de qualquer arquivo e registre na blockchain
@@ -31,6 +37,8 @@ Demonstração de registro seguro e imutável de documentos usando smart contrac
 - Node.js (v16 ou superior)
 - MetaMask instalado no navegador
 - Conta com MATIC de teste (Mumbai testnet)
+
+> 📋 **Novo na MetaMask?** Consulte nosso [**Guia Completo MetaMask**](./GuideForMetaMask.md) para configuração detalhada, criação de carteiras de desenvolvimento e boas práticas de segurança.
 
 ### 2. Instalação
 
@@ -105,6 +113,13 @@ Acesse: http://localhost:3000
 
 ### 1. Configurar MetaMask
 
+> 🦊 **Para configuração detalhada**: Consulte o [**Guia Completo MetaMask**](./GuideForMetaMask.md) que explica:
+> - Como criar carteiras separadas para desenvolvimento vs uso real
+> - Configuração de segurança e boas práticas
+> - Como obter e configurar chaves privadas
+> - Solução de problemas comuns
+
+**Configuração Rápida:**
 1. Instale a extensão MetaMask
 2. Adicione a rede Polygon Mumbai:
    - **Nome**: Polygon Mumbai Testnet

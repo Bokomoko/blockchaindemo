@@ -21,6 +21,10 @@ nano .env
 ```
 
 #### B. Configurar MetaMask
+
+> 🦊 **Configuração Detalhada**: Para instruções completas sobre MetaMask, carteiras de desenvolvimento e segurança, consulte o [**Guia Completo MetaMask**](./GuideForMetaMask.md)
+
+**Configuração Rápida:**
 1. Instale a extensão MetaMask
 2. Adicione a rede Polygon Mumbai:
    - **Nome**: Polygon Mumbai Testnet
