@@ -1,369 +1,278 @@
-# 🦊 Guia Completo MetaMask para Desenvolvimento Blockchain
+# 🦊 Complete MetaMask Guide for Blockchain Development
 
-## 📋 Índice
+## 📋 Table of Contents
 
-1. [Instalação da MetaMask](#1-instalação-da-metamask)
-2. [Configuração para Desenvolvimento](#2-configuração-para-desenvolvimento)
-3. [Configuração para Uso Real](#3-configuração-para-uso-real)
-4. [Redes de Teste (Testnets)](#4-redes-de-teste-testnets)
-5. [Segurança e Boas Práticas](#5-segurança-e-boas-práticas)
-6. [Configuração do Projeto](#6-configuração-do-projeto)
-7. [Solução de Problemas](#7-solução-de-problemas)
+1. [MetaMask Installation](#1-metamask-installation)
+2. [Development Setup](#2-development-setup)
+3. [Production Setup](#3-production-setup)
+4. [Test Networks (Testnets)](#4-test-networks-testnets)
+5. [Security and Best Practices](#5-security-and-best-practices)
+6. [Project Configuration](#6-project-configuration)
+7. [Troubleshooting](#7-troubleshooting)
 
 ---
 
-## 1. 🔧 Instalação da MetaMask
+## 1. 🔧 MetaMask Installation
 
-### Opção A: MetaMask Normal (Recomendado)
+### Option A: Regular MetaMask (Recommended)
 - **URL**: https://metamask.io/
-- **Estabilidade**: ✅ Produção
-- **Para**: Desenvolvimento e uso real
-- **Compatibilidade**: Total
+- **Stability**: ✅ Production
+- **For**: Development and real use
+- **Compatibility**: Full
 
-### Opção B: MetaMask Flask (Experimental)
+### Option B: MetaMask Flask (Experimental)
 - **URL**: https://metamask.io/flask/
-- **Estabilidade**: ⚠️ Beta
-- **Para**: Features experimentais
-- **Compatibilidade**: Pode ter bugs
+- **Stability**: ⚠️ Beta
+- **For**: Experimental features
+- **Compatibility**: May have bugs
 
-**🎯 Recomendação**: Use a **MetaMask Normal** para este projeto.
+**🎯 Recommendation**: Use **Regular MetaMask** for this project.
 
 ---
 
-## 2. 🏗️ Configuração para Desenvolvimento
+## 2. 🏗️ Development Setup
 
-### Passo 1: Criar Carteira de Desenvolvimento
+### Step 1: Create Development Wallet
 
 ```bash
-# ⚠️ IMPORTANTE: Esta carteira é APENAS para desenvolvimento
-# Nunca use esta carteira para dinheiro real!
+# ⚠️ IMPORTANT: This wallet is ONLY for development
+# Never use this wallet for real money!
 ```
 
-1. **Abra MetaMask** → "Create a new wallet"
-2. **Crie senha forte** para a extensão
-3. **Anote a seed phrase** em local seguro
-4. **Nomeie a conta**: "DEV - Blockchain Demo"
+1. **Open MetaMask** → "Create a new wallet"
+2. **Create strong password** for the extension
+3. **Save the seed phrase** in a secure location
+4. **Name the account**: "DEV - Blockchain Demo"
 
-### Passo 2: Adicionar Rede Mumbai (Testnet)
+### Step 2: Add Mumbai Network (Testnet)
 
-**Configuração Manual:**
+**Manual Setup:**
 ```json
-Nome da Rede: Polygon Mumbai Testnet
-Nova URL RPC: https://rpc-mumbai.maticvigil.com
-ID da Cadeia: 80001
-Símbolo da Moeda: MATIC
-URL do Explorador de Blocos: https://mumbai.polygonscan.com
+{
+  "Network Name": "Polygon Mumbai Testnet",
+  "New RPC URL": "https://rpc-mumbai.maticvigil.com",
+  "Chain ID": "80001",
+  "Currency Symbol": "MATIC",
+  "Block Explorer URL": "https://mumbai.polygonscan.com"
+}
 ```
 
-**Ou use nosso script automático:**
-```javascript
-// Cole no console do browser na página da DApp
-await window.ethereum.request({
-  method: 'wallet_addEthereumChain',
-  params: [{
-    chainId: '0x13881',
-    chainName: 'Polygon Mumbai Testnet',
-    nativeCurrency: {
-      name: 'MATIC',
-      symbol: 'MATIC',
-      decimals: 18
-    },
-    rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
-    blockExplorerUrls: ['https://mumbai.polygonscan.com/']
-  }]
-});
-```
-
-### Passo 3: Obter MATIC de Teste
-
-1. **Faucet Principal**: https://faucet.polygon.technology/
-2. **Faucet Backup**: https://mumbaifaucet.com/
-3. **Processo**:
-   - Cole seu endereço da carteira
-   - Resolva o CAPTCHA
-   - Clique em "Send Me MATIC"
-   - Aguarde 1-2 minutos
-
-### Passo 4: Obter Chave Privada
+**Automatic Setup:**
+1. Visit: https://chainlist.org/
+2. Search for "Mumbai"
+3. Click "Add to MetaMask"
 
 ```bash
-# ⚠️ CUIDADO: Só faça isso com carteira de DESENVOLVIMENTO!
+# DEVELOPMENT SETUP
+# Add this to your development environment variables
+NETWORK_NAME="Polygon Mumbai Testnet"
+CHAIN_ID="80001"
+RPC_URL="https://rpc-mumbai.maticvigil.com"
 ```
 
-1. **MetaMask** → Clique nos 3 pontos → "Account Details"
-2. **"Export Private Key"**
-3. **Digite sua senha**
-4. **Copie a chave privada**
+## 3. 💰 Production Setup
 
-### Passo 5: Configurar Arquivo .env
+### For Real Usage (NOT for this demo):
 
 ```bash
-# Copie o arquivo de exemplo
+# ⚠️ CRITICAL SECURITY WARNING ⚠️
+#
+# 1. NEVER share your seed phrase
+# 2. NEVER enter seed phrase on suspicious websites
+# 3. USE HARDWARE WALLET for large amounts
+# 4. ALWAYS verify contract addresses
+# 5. START with small amounts for testing
+```
+
+### Production Networks:
+- **Polygon Mainnet**: Real MATIC tokens (costs money)
+- **Ethereum Mainnet**: Real ETH tokens (expensive gas)
+
+---
+
+## 4. 🧪 Test Networks (Testnets)
+
+### Polygon Mumbai (Used in this project)
+- **Purpose**: Free testing
+- **Currency**: MATIC (free from faucet)
+- **Faucet**: https://faucet.polygon.technology/
+- **Explorer**: https://mumbai.polygonscan.com/
+
+### Other Testnets:
+- **Goerli**: Ethereum testnet
+- **Sepolia**: New Ethereum testnet
+- **BSC Testnet**: Binance Smart Chain
+
+### Getting Test Tokens:
+
+1. **Copy your wallet address** from MetaMask
+2. **Visit faucet**: https://faucet.polygon.technology/
+3. **Paste address** and request tokens
+4. **Wait 1-2 minutes** for tokens to arrive
+
+```bash
+# Check balance in MetaMask
+# Should show MATIC tokens after faucet request
+```
+
+---
+
+## 5. 🔐 Security and Best Practices
+
+### Development Security:
+
+```bash
+# ✅ DO:
+- Use separate wallet for development
+- Keep seed phrase secure and offline
+- Never commit private keys to git
+- Use environment variables for sensitive data
+- Test with small amounts first
+
+# ❌ DON'T:
+- Use main wallet for development
+- Share private keys or seed phrases
+- Use development keys in production
+- Store keys in code
+- Connect to suspicious DApps
+```
+
+### Environment Variables:
+```bash
+# .env file (NEVER commit this)
+PRIVATE_KEY="your_private_key_here"
+POLYGON_MUMBAI_RPC="https://rpc-mumbai.maticvigil.com"
+NEXT_PUBLIC_CONTRACT_ADDRESS="deployed_contract_address"
+```
+
+### Account Management:
+1. **Development Account**: For testing smart contracts
+2. **Staging Account**: For final testing
+3. **Production Account**: For real usage (if applicable)
+
+---
+
+## 6. ⚙️ Project Configuration
+
+### Environment Setup:
+
+```bash
+# 1. Copy environment template
 cp .env.example .env
 
-# Edite com suas configurações
-nano .env
+# 2. Edit .env file with your settings
+# PRIVATE_KEY=your_private_key_here
+# POLYGON_MUMBAI_RPC=https://rpc-mumbai.maticvigil.com
+# NEXT_PUBLIC_CONTRACT_ADDRESS=deployed_contract_address
 ```
 
+### MetaMask Configuration:
+
+1. **Switch to Mumbai network** in MetaMask
+2. **Import account** using private key (development only)
+3. **Get test MATIC** from faucet
+4. **Verify connection** in DApp
+
+### Smart Contract Deployment:
+
 ```bash
-# Configuração para DESENVOLVIMENTO
-PRIVATE_KEY=sua_chave_privada_de_desenvolvimento_aqui
-POLYGON_MUMBAI_RPC=https://rpc-mumbai.maticvigil.com
-NEXT_PUBLIC_CONTRACT_ADDRESS=
-NEXT_PUBLIC_CHAIN_ID=80001
+# Deploy to Mumbai testnet
+npx hardhat run scripts/deploy.js --network mumbai
+
+# Copy contract address to .env
+# NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
 ```
 
 ---
 
-## 3. 💰 Configuração para Uso Real
+## 7. 🔧 Troubleshooting
 
-### ⚠️ NUNCA misture desenvolvimento com uso real!
+### Common Issues:
 
-### Carteira Principal (Uso Real)
+#### Problem: "Wrong Network"
 ```bash
-✅ Use para:
-- Comprar/vender NFTs
-- DeFi real
-- Transações mainnet
-- Guardar criptomoedas de valor
-
-❌ NUNCA use para:
-- Desenvolvimento de DApps
-- Testes de smart contracts
-- Experimentação
-- Compartilhar chaves privadas
+# Solution: Switch to Mumbai in MetaMask
+# Settings → Networks → Polygon Mumbai Testnet
 ```
 
-### Carteira de Desenvolvimento
+#### Problem: "Insufficient funds"
 ```bash
-✅ Use para:
-- Desenvolvimento de DApps
-- Testes de contratos
-- Aprendizado
-- Demos e apresentações
-
-❌ NUNCA use para:
-- Guardar dinheiro real
-- Transações mainnet importantes
-- Investimentos
+# Solution: Get test MATIC from faucet
+# Visit: https://faucet.polygon.technology/
 ```
 
-### Estrutura Recomendada
+#### Problem: "Transaction failed"
+```bash
+# Possible causes:
+# 1. Low gas limit
+# 2. Network congestion
+# 3. Contract error
+# 4. Insufficient MATIC balance
 
+# Solutions:
+# 1. Increase gas limit
+# 2. Wait and retry
+# 3. Check contract code
+# 4. Get more MATIC from faucet
 ```
-MetaMask Principal
-├── 📄 Conta 1: "Principal" (uso real)
-├── 🏗️ Conta 2: "DEV - Polygon" (desenvolvimento)
-├── 🧪 Conta 3: "DEV - Ethereum" (testes)
-└── 📚 Conta 4: "Learning" (estudos)
+
+#### Problem: "MetaMask not detected"
+```bash
+# Solutions:
+# 1. Refresh page
+# 2. Enable MetaMask
+# 3. Check browser compatibility
+# 4. Disable conflicting extensions
 ```
+
+### Debug Steps:
+
+1. **Check Network**: Verify Mumbai is selected
+2. **Check Balance**: Ensure sufficient MATIC
+3. **Check Console**: Look for JavaScript errors
+4. **Check Contract**: Verify address in .env
+5. **Reset MetaMask**: Account Settings → Advanced → Reset
+
+### Support Resources:
+
+- **MetaMask Support**: https://support.metamask.io/
+- **Polygon Docs**: https://docs.polygon.technology/
+- **Hardhat Docs**: https://hardhat.org/docs/
+- **Ethers.js Docs**: https://docs.ethers.io/
 
 ---
 
-## 4. 🌐 Redes de Teste (Testnets)
+## 🎯 Quick Reference
 
-### Mumbai (Polygon) - Recomendado
-```json
-Nome: Polygon Mumbai Testnet
-RPC: https://rpc-mumbai.maticvigil.com
-Chain ID: 80001
-Símbolo: MATIC
-Explorer: https://mumbai.polygonscan.com
-Faucet: https://faucet.polygon.technology/
-```
-
-### Sepolia (Ethereum)
-```json
-Nome: Sepolia Testnet
-RPC: https://sepolia.infura.io/v3/YOUR-PROJECT-ID
-Chain ID: 11155111
-Símbolo: ETH
-Explorer: https://sepolia.etherscan.io
-Faucet: https://sepoliafaucet.com/
-```
-
-### Goerli (Ethereum) - Deprecated
-```bash
-⚠️ AVISO: Goerli será descontinuada
-Use Sepolia em vez de Goerli
-```
-
----
-
-## 5. 🔐 Segurança e Boas Práticas
-
-### ✅ Sempre Faça:
-
-1. **Carteiras Separadas**
-   ```bash
-   Desenvolvimento ≠ Uso Real
-   ```
-
-2. **Backup da Seed Phrase**
-   ```bash
-   Anote em papel, guarde em local seguro
-   Nunca tire foto ou salve digitalmente
-   ```
-
-3. **Senhas Fortes**
-   ```bash
-   Use gerenciador de senhas
-   Ative 2FA quando possível
-   ```
-
-4. **Verificar URLs**
-   ```bash
-   ✅ https://metamask.io/
-   ❌ metamask.com.phishing-site.com
-   ```
-
-### ❌ NUNCA Faça:
-
-1. **Compartilhar Chave Privada Real**
-   ```bash
-   ❌ Chave de carteira com dinheiro real
-   ✅ Chave de carteira de desenvolvimento
-   ```
-
-2. **Usar Carteira Principal para Desenvolvimento**
-   ```bash
-   ❌ Uma carteira para tudo
-   ✅ Carteiras separadas por uso
-   ```
-
-3. **Ignorar Avisos de Segurança**
-   ```bash
-   Se a MetaMask avisar sobre algo suspeito, PARE!
-   ```
-
----
-
-## 6. ⚙️ Configuração do Projeto
-
-### Deploy do Contrato
-
-```bash
-# 1. Compile o contrato
-npm run compile
-
-# 2. Execute os testes
-npm run test
-
-# 3. Deploy na testnet
-npm run deploy:mumbai
-
-# 4. Copie o endereço do contrato
-echo "NEXT_PUBLIC_CONTRACT_ADDRESS=0x..." >> .env
-```
-
-### Iniciar a DApp
-
-```bash
-# Inicie o servidor de desenvolvimento
-npm run dev
-
-# Acesse http://localhost:3000
-```
-
-### Conectar MetaMask
-
-1. **Abra a DApp** em http://localhost:3000
-2. **Clique** em "Conectar MetaMask"
-3. **Aprove** a conexão
-4. **Troque** para Mumbai se solicitado
-5. **Pronto!** Agora você pode interagir
-
----
-
-## 7. 🆘 Solução de Problemas
-
-### "MetaMask não detectado"
-```bash
-Solução:
-1. Verifique se a extensão está instalada
-2. Recarregue a página
-3. Verifique se está habilitada no browser
-```
-
-### "Rede incorreta"
-```bash
-Solução:
-1. Configure Mumbai manualmente
-2. Use o script automático
-3. Verifique Chain ID: 80001
-```
-
-### "Saldo insuficiente"
-```bash
-Solução:
-1. Use o faucet: https://faucet.polygon.technology/
-2. Aguarde 1-2 minutos
-3. Verifique se está na rede correta
-```
-
-### "Transação falhou"
-```bash
-Possíveis causas:
-1. Gas insuficiente → Aumente o gas limit
-2. Preço baixo → Aumente o gas price
-3. Rede congestionada → Aguarde e tente novamente
-4. Nonce incorreto → Reset account na MetaMask
-```
-
-### "Contrato não encontrado"
-```bash
-Verifique:
-1. Endereço do contrato no .env
-2. Rede correta (Mumbai)
-3. Deploy foi realizado com sucesso
-```
-
----
-
-## 🎯 Checklist Final
-
-### ✅ Desenvolvimento
-- [ ] MetaMask instalada
-- [ ] Carteira de desenvolvimento criada
-- [ ] Rede Mumbai adicionada
-- [ ] MATIC de teste obtido
-- [ ] Chave privada configurada no .env
-- [ ] Contrato deployado
-- [ ] DApp funcionando
-
-### ✅ Segurança
-- [ ] Carteiras separadas (dev vs real)
-- [ ] Seed phrase anotada e guardada
-- [ ] Chave privada real NUNCA exposta
-- [ ] Apenas tokens de teste na carteira dev
-- [ ] URLs verificadas
-
----
-
-## 📚 Recursos Adicionais
-
-### Links Oficiais
+### Essential URLs:
 - **MetaMask**: https://metamask.io/
-- **Polygon**: https://polygon.technology/
+- **Chainlist**: https://chainlist.org/
+- **Mumbai Faucet**: https://faucet.polygon.technology/
 - **Mumbai Explorer**: https://mumbai.polygonscan.com/
-- **Documentação**: https://docs.metamask.io/
 
-### Faucets
-- **Mumbai MATIC**: https://faucet.polygon.technology/
-- **Backup**: https://mumbaifaucet.com/
-- **Sepolia ETH**: https://sepoliafaucet.com/
+### Essential Commands:
+```bash
+# Setup project
+npm install
+cp .env.example .env
 
-### Comunidade
-- **Discord MetaMask**: https://discord.gg/metamask
-- **Reddit**: r/Metamask
-- **Support**: https://metamask.zendesk.com/
+# Deploy contract
+npx hardhat run scripts/deploy.js --network mumbai
+
+# Run tests
+npm test
+
+# Start development server
+npm run dev
+```
+
+### Security Checklist:
+- [ ] Using development wallet only
+- [ ] Seed phrase stored securely offline
+- [ ] Private keys in .env (not committed)
+- [ ] Testing on Mumbai testnet only
+- [ ] Contract address verified
 
 ---
 
-**🎉 Parabéns! Agora você está pronto para desenvolver DApps com segurança!**
-
-> **Lembre-se**: A segurança na blockchain é IRREVERSÍVEL. Uma vez que uma transação é confirmada, não pode ser desfeita. Sempre use carteiras de teste para desenvolvimento!
-
----
-
-*Este guia foi criado para o projeto Blockchain Document Registry. Para dúvidas específicas, consulte o README.md principal.*
+**🔐 Remember: This is an educational demonstration using testnet. Never use real private keys in demo projects!**

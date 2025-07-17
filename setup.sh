@@ -1,45 +1,45 @@
 #!/bin/bash
 
-echo "🚀 Configuração do Projeto Blockchain Document Registry"
-echo "======================================================"
+echo "🚀 Blockchain Document Registry Project Setup"
+echo "=============================================="
 
-# Verificar se o Node.js está instalado
+# Check if Node.js is installed
 if ! command -v node &> /dev/null; then
-    echo "❌ Node.js não encontrado. Por favor, instale o Node.js primeiro."
+    echo "❌ Node.js not found. Please install Node.js first."
     exit 1
 fi
 
-echo "✅ Node.js $(node --version) detectado"
+echo "✅ Node.js $(node --version) detected"
 
-# Verificar se está na versão correta
+# Check if using correct version
 if [ -f ".nvmrc" ] && command -v nvm &> /dev/null; then
-    echo "🔧 Usando nvm para configurar a versão correta do Node.js..."
+    echo "🔧 Using nvm to set correct Node.js version..."
     nvm use
 fi
 
-# Instalar dependências
-echo "📦 Instalando dependências..."
+# Install dependencies
+echo "📦 Installing dependencies..."
 npm install
 
-# Compilar contratos
-echo "⚙️ Compilando smart contracts..."
+# Compile contracts
+echo "⚙️ Compiling smart contracts..."
 npm run compile
 
-# Executar testes
-echo "🧪 Executando testes..."
+# Run tests
+echo "🧪 Running tests..."
 npm run test
 
 echo ""
-echo "✅ Configuração concluída com sucesso!"
+echo "✅ Setup completed successfully!"
 echo ""
-echo "📋 Próximos passos:"
-echo "1. Copie .env.example para .env e configure suas chaves"
-echo "2. Execute 'npm run deploy:mumbai' para fazer deploy na testnet"
-echo "3. Execute 'npm run dev' para iniciar o servidor de desenvolvimento"
+echo "📋 Next steps:"
+echo "1. Copy .env.example to .env and configure your keys"
+echo "2. Run 'npm run deploy:mumbai' to deploy to testnet"
+echo "3. Run 'npm run dev' to start development server"
 echo ""
-echo "🔗 Links úteis:"
-echo "- Faucet Mumbai: https://faucet.polygon.technology/"
-echo "- Explorer Mumbai: https://mumbai.polygonscan.com/"
+echo "🔗 Useful links:"
+echo "- Mumbai Faucet: https://faucet.polygon.technology/"
+echo "- Mumbai Explorer: https://mumbai.polygonscan.com/"
 echo "- MetaMask: https://metamask.io/"
 echo ""
-echo "🎉 Pronto para começar!"
+echo "🎉 Ready to start!"
