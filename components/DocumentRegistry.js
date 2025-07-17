@@ -8,21 +8,21 @@ export default function DocumentRegistry({ contract, account, provider }) {
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
 
-    // Estados para registro de documento
+    // States for document registration
     const [documentName, setDocumentName] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [registering, setRegistering] = useState(false);
 
-    // Estados para consulta
+    // States for search
     const [searchHash, setSearchHash] = useState('');
     const [searchResult, setSearchResult] = useState(null);
 
-    // Estados para transferência
+    // States for transfer
     const [transferHash, setTransferHash] = useState('');
     const [transferAddress, setTransferAddress] = useState('');
     const [transferring, setTransferring] = useState(false);
 
-    // Carregar documentos do usuário
+    // Load user documents
     const loadUserDocuments = async () => {
         if (!contract || !account) return;
 
@@ -36,21 +36,21 @@ export default function DocumentRegistry({ contract, account, provider }) {
                         hash: doc.hash,
                         name: doc.name,
                         owner: doc.owner,
-                        timestamp: new Date(Number(doc.timestamp) * 1000).toLocaleString('pt-BR'),
+                        timestamp: new Date(Number(doc.timestamp) * 1000).toLocaleString('en-US'),
                         exists: doc.exists
                     };
                 })
             );
             setDocuments(docsWithDetails);
         } catch (error) {
-            console.error('Erro ao carregar documentos:', error);
-            showMessage('Erro ao carregar documentos', 'error');
+            console.error('Error loading documents:', error);
+            showMessage('Error loading documents', 'error');
         } finally {
             setLoading(false);
         }
     };
 
-    // Calcular hash do arquivo
+    // Calculate file hash
     const calculateFileHash = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -65,52 +65,52 @@ export default function DocumentRegistry({ contract, account, provider }) {
         });
     };
 
-    // Registrar documento
+    // Register document
     const registerDocument = async () => {
         if (!documentName || !selectedFile) {
-            showMessage('Por favor, insira o nome e selecione um arquivo', 'error');
+            showMessage('Please enter a name and select a file', 'error');
             return;
         }
 
         setRegistering(true);
         try {
-            // Calcular hash do arquivo
+            // Calculate file hash
             const fileHash = await calculateFileHash(selectedFile);
 
-            // Verificar se já está registrado
+            // Check if already registered
             const isRegistered = await contract.isDocumentRegistered(fileHash);
             if (isRegistered) {
-                showMessage('Este documento já foi registrado na blockchain', 'error');
+                showMessage('This document is already registered on the blockchain', 'error');
                 return;
             }
 
-            // Registrar na blockchain
+            // Register on blockchain
             const tx = await contract.registerDocument(fileHash, documentName);
-            showMessage('Transação enviada. Aguardando confirmação...', 'warning');
+            showMessage('Transaction sent. Awaiting confirmation...', 'warning');
 
             await tx.wait();
-            showMessage(`Documento "${documentName}" registrado com sucesso!`, 'success');
+            showMessage(`Document "${documentName}" registered successfully!`, 'success');
 
-            // Limpar formulário
+            // Clear form
             setDocumentName('');
             setSelectedFile(null);
             document.getElementById('file-input').value = '';
 
-            // Recarregar documentos
+            // Reload documents
             await loadUserDocuments();
 
         } catch (error) {
-            console.error('Erro ao registrar documento:', error);
-            showMessage('Erro ao registrar documento: ' + error.message, 'error');
+            console.error('Error registering document:', error);
+            showMessage('Error registering document: ' + error.message, 'error');
         } finally {
             setRegistering(false);
         }
     };
 
-    // Consultar documento
+    // Search document
     const searchDocument = async () => {
         if (!searchHash) {
-            showMessage('Por favor, insira o hash do documento', 'error');
+            showMessage('Please enter the document hash', 'error');
             return;
         }
 
@@ -127,50 +127,50 @@ export default function DocumentRegistry({ contract, account, provider }) {
                 hash: doc.hash,
                 name: doc.name,
                 owner: doc.owner,
-                timestamp: new Date(Number(doc.timestamp) * 1000).toLocaleString('pt-BR')
+                timestamp: new Date(Number(doc.timestamp) * 1000).toLocaleString('en-US')
             });
         } catch (error) {
-            console.error('Erro ao consultar documento:', error);
-            showMessage('Erro ao consultar documento: ' + error.message, 'error');
+            console.error('Error searching document:', error);
+            showMessage('Error searching document: ' + error.message, 'error');
         }
     };
 
-    // Transferir documento
+    // Transfer document
     const transferDocument = async () => {
         if (!transferHash || !transferAddress) {
-            showMessage('Por favor, insira o hash e o endereço de destino', 'error');
+            showMessage('Please enter the hash and destination address', 'error');
             return;
         }
 
         if (!ethers.isAddress(transferAddress)) {
-            showMessage('Endereço inválido', 'error');
+            showMessage('Invalid address', 'error');
             return;
         }
 
         setTransferring(true);
         try {
             const tx = await contract.transferDocument(transferHash, transferAddress);
-            showMessage('Transferência enviada. Aguardando confirmação...', 'warning');
+            showMessage('Transfer sent. Awaiting confirmation...', 'warning');
 
             await tx.wait();
-            showMessage('Documento transferido com sucesso!', 'success');
+            showMessage('Document transferred successfully!', 'success');
 
-            // Limpar formulário
+            // Clear form
             setTransferHash('');
             setTransferAddress('');
 
-            // Recarregar documentos
+            // Reload documents
             await loadUserDocuments();
 
         } catch (error) {
-            console.error('Erro ao transferir documento:', error);
-            showMessage('Erro ao transferir documento: ' + error.message, 'error');
+            console.error('Error transferring document:', error);
+            showMessage('Error transferring document: ' + error.message, 'error');
         } finally {
             setTransferring(false);
         }
     };
 
-    // Mostrar mensagem
+    // Show message
     const showMessage = (msg, type) => {
         setMessage(msg);
         setMessageType(type);
@@ -180,7 +180,7 @@ export default function DocumentRegistry({ contract, account, provider }) {
         }, 5000);
     };
 
-    // Carregar documentos ao inicializar
+    // Load documents on initialization
     useEffect(() => {
         loadUserDocuments();
     }, [contract, account]);

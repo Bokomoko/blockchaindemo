@@ -1,7 +1,7 @@
 {
     "name": "blockchain-document-registry",
     "version": "1.0.0",
-    "description": "Demonstração de registro de documentos em blockchain",
+    "description": "Blockchain document registration demonstration",
     "main": "index.js",
     "scripts": {
         "dev": "next dev",

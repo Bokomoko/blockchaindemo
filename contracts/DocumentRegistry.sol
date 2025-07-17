@@ -3,29 +3,29 @@ pragma solidity ^0.8.19;
 
 /**
  * @title DocumentRegistry
- * @dev Contrato para registro seguro de documentos em blockchain
+ * @dev Contract for secure document registration on blockchain
  * @author Blockchain Demo
  */
 contract DocumentRegistry {
 
     struct Document {
-        string hash;           // Hash do documento
-        string name;           // Nome do documento
-        address owner;         // Proprietário do documento
-        uint256 timestamp;     // Timestamp do registro
-        bool exists;           // Flag para verificar se o documento existe
+        string hash;           // Document hash
+        string name;           // Document name
+        address owner;         // Document owner
+        uint256 timestamp;     // Registration timestamp
+        bool exists;           // Flag to check if document exists
     }
 
-    // Mapeamento de hash do documento para os dados do documento
+    // Mapping from document hash to document data
     mapping(string => Document) public documents;
 
-    // Mapeamento de endereços para lista de hashes de documentos
+    // Mapping from addresses to list of document hashes
     mapping(address => string[]) public ownerDocuments;
 
-    // Array com todos os hashes de documentos registrados
+    // Array with all registered document hashes
     string[] public allDocuments;
 
-    // Eventos
+    // Events
     event DocumentRegistered(
         string indexed documentHash,
         string name,
@@ -41,16 +41,16 @@ contract DocumentRegistry {
     );
 
     /**
-     * @dev Registra um novo documento na blockchain
-     * @param _hash Hash único do documento
-     * @param _name Nome do documento
+     * @dev Registers a new document on the blockchain
+     * @param _hash Unique hash of the document
+     * @param _name Name of the document
      */
     function registerDocument(string memory _hash, string memory _name) public {
-        require(bytes(_hash).length > 0, "Hash do documento nao pode estar vazio");
-        require(bytes(_name).length > 0, "Nome do documento nao pode estar vazio");
-        require(!documents[_hash].exists, "Documento ja foi registrado");
+        require(bytes(_hash).length > 0, "Document hash cannot be empty");
+        require(bytes(_name).length > 0, "Document name cannot be empty");
+        require(!documents[_hash].exists, "Document already registered");
 
-        // Cria o documento
+        // Create the document
         documents[_hash] = Document({
             hash: _hash,
             name: _name,
@@ -59,88 +59,88 @@ contract DocumentRegistry {
             exists: true
         });
 
-        // Adiciona à lista do proprietário
+        // Add to owner's list
         ownerDocuments[msg.sender].push(_hash);
 
-        // Adiciona à lista global
+        // Add to global list
         allDocuments.push(_hash);
 
         emit DocumentRegistered(_hash, _name, msg.sender, block.timestamp);
     }
 
     /**
-     * @dev Verifica se um documento está registrado
-     * @param _hash Hash do documento
-     * @return bool Se o documento existe
+     * @dev Checks if a document is registered
+     * @param _hash Document hash
+     * @return bool Whether the document exists
      */
     function isDocumentRegistered(string memory _hash) public view returns (bool) {
         return documents[_hash].exists;
     }
 
     /**
-     * @dev Obtém informações de um documento
-     * @param _hash Hash do documento
-     * @return Document Dados do documento
+     * @dev Gets information about a document
+     * @param _hash Document hash
+     * @return Document Document data
      */
     function getDocument(string memory _hash) public view returns (Document memory) {
-        require(documents[_hash].exists, "Documento nao encontrado");
+        require(documents[_hash].exists, "Document not found");
         return documents[_hash];
     }
 
     /**
-     * @dev Transfere a propriedade de um documento
-     * @param _hash Hash do documento
-     * @param _newOwner Novo proprietário
+     * @dev Transfers ownership of a document
+     * @param _hash Document hash
+     * @param _newOwner New owner
      */
     function transferDocument(string memory _hash, address _newOwner) public {
-        require(documents[_hash].exists, "Documento nao encontrado");
-        require(documents[_hash].owner == msg.sender, "Apenas o proprietario pode transferir");
-        require(_newOwner != address(0), "Endereco invalido");
-        require(_newOwner != msg.sender, "Nao pode transferir para si mesmo");
+        require(documents[_hash].exists, "Document not found");
+        require(documents[_hash].owner == msg.sender, "Only owner can transfer");
+        require(_newOwner != address(0), "Invalid address");
+        require(_newOwner != msg.sender, "Cannot transfer to yourself");
 
         address previousOwner = documents[_hash].owner;
 
-        // Atualiza o proprietário
+        // Update the owner
         documents[_hash].owner = _newOwner;
 
-        // Remove da lista do proprietário anterior
+        // Remove from previous owner's list
         _removeFromOwnerList(previousOwner, _hash);
 
-        // Adiciona à lista do novo proprietário
+        // Add to new owner's list
         ownerDocuments[_newOwner].push(_hash);
 
         emit DocumentTransferred(_hash, previousOwner, _newOwner, block.timestamp);
     }
 
     /**
-     * @dev Obtém todos os documentos de um proprietário
-     * @param _owner Endereço do proprietário
-     * @return string[] Array com hashes dos documentos
+     * @dev Gets all documents of an owner
+     * @param _owner Owner's address
+     * @return string[] Array with document hashes
      */
     function getDocumentsByOwner(address _owner) public view returns (string[] memory) {
         return ownerDocuments[_owner];
     }
 
     /**
-     * @dev Obtém o número total de documentos registrados
-     * @return uint256 Total de documentos
+     * @dev Gets the total number of registered documents
+     * @return uint256 Total number of documents
      */
     function getTotalDocuments() public view returns (uint256) {
         return allDocuments.length;
     }
 
     /**
-     * @dev Obtém todos os hashes de documentos registrados
-     * @return string[] Array com todos os hashes
+     * @dev Gets all registered document hashes
+     * @return string[] Array with all hashes
      */
     function getAllDocuments() public view returns (string[] memory) {
         return allDocuments;
     }
 
     /**
-     * @dev Remove um hash da lista de documentos do proprietário
-     * @param _owner Proprietário
-     * @param _hash Hash a ser removido
+     * @dev Removes a hash from the owner's document list
+     * @param _owner Owner
+     * @param _hash Hash to be removed
      */
     function _removeFromOwnerList(address _owner, string memory _hash) private {
         string[] storage ownerDocs = ownerDocuments[_owner];

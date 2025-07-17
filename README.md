@@ -1,288 +1,288 @@
 # 📄 Blockchain Document Registry
 
-Demonstração de registro seguro e imutável de documentos usando smart contracts na blockchain Polygon Mumbai (testnet gratuita).
+Demonstration of secure and immutable document registration using smart contracts on the Polygon Mumbai blockchain (free testnet).
 
-## 📚 Documentação
+## 📚 Documentation
 
-- 📖 **[README.md](./README.md)** - Documentação principal do projeto
-- 🦊 **[GuideForMetaMask.md](./GuideForMetaMask.md)** - Guia completo MetaMask para desenvolvimento
-- 🚀 **[QUICKSTART.md](./QUICKSTART.md)** - Início rápido e checklist
+- 📖 **[README.md](./README.md)** - Main project documentation
+- 🦊 **[GuideForMetaMask.md](./GuideForMetaMask.md)** - Complete MetaMask guide for development
+- 🚀 **[QUICKSTART.md](./QUICKSTART.md)** - Quick start and checklist
 
-## 🎯 Funcionalidades
+## 🎯 Features
 
-- ✅ **Registro de Documentos**: Calcule o hash SHA-256 de qualquer arquivo e registre na blockchain
-- 🔍 **Verificação de Autenticidade**: Consulte se um documento foi registrado e obtenha suas informações
-- 🔄 **Transferência de Propriedade**: Transfira a propriedade de documentos entre endereços
-- 👤 **Gestão de Documentos**: Visualize todos os seus documentos registrados
-- 🔗 **Integração MetaMask**: Interface amigável com carteira Web3
+- ✅ **Document Registration**: Calculate SHA-256 hash of any file and register on blockchain
+- 🔍 **Authenticity Verification**: Check if a document was registered and get its information
+- 🔄 **Ownership Transfer**: Transfer document ownership between addresses
+- 👤 **Document Management**: View all your registered documents
+- 🔗 **MetaMask Integration**: User-friendly Web3 wallet interface
 
-## 🏗️ Arquitetura
+## 🏗️ Architecture
 
 ### Smart Contract
-- **Rede**: Polygon Mumbai Testnet (gratuita)
-- **Linguagem**: Solidity 0.8.19
-- **Funcionalidades**: Registro, consulta e transferência de documentos
-- **Segurança**: Verificações de propriedade e validações de entrada
+- **Network**: Polygon Mumbai Testnet (free)
+- **Language**: Solidity 0.8.19
+- **Features**: Document registration, query and transfer
+- **Security**: Ownership verification and input validation
 
 ### Frontend
 - **Framework**: Next.js + React
-- **Web3**: Ethers.js para interação com blockchain
-- **Carteira**: MetaMask
-- **Hash**: Crypto-js para cálculo SHA-256
+- **Web3**: Ethers.js for blockchain interaction
+- **Wallet**: MetaMask
+- **Hash**: Crypto-js for SHA-256 calculation
 
-## 🚀 Como Executar
+## 🚀 How to Run
 
-### 1. Pré-requisitos
+### 1. Prerequisites
 
-- Node.js (v16 ou superior)
-- MetaMask instalado no navegador
-- Conta com MATIC de teste (Mumbai testnet)
+- Node.js (v16 or higher)
+- MetaMask installed in browser
+- Account with test MATIC (Mumbai testnet)
 
-> 📋 **Novo na MetaMask?** Consulte nosso [**Guia Completo MetaMask**](./GuideForMetaMask.md) para configuração detalhada, criação de carteiras de desenvolvimento e boas práticas de segurança.
+> 📋 **New to MetaMask?** Check our [**Complete MetaMask Guide**](./GuideForMetaMask.md) for detailed configuration, development wallet creation, and security best practices.
 
-### 2. Instalação
+### 2. Installation
 
 ```bash
-# Clonar o repositório
-git clone <seu-repositorio>
+# Clone the repository
+git clone <your-repository>
 cd blockchaindemo
 
-# Instalar dependências
+# Install dependencies
 npm install
 ```
 
-### 3. Configuração
+### 3. Configuration
 
 ```bash
-# Copiar arquivo de ambiente
+# Copy environment file
 cp .env.example .env
 
-# Editar .env com suas configurações
+# Edit .env with your settings
 nano .env
 ```
 
-Configure as seguintes variáveis no `.env`:
+Configure the following variables in `.env`:
 
 ```env
-# Chave privada da sua carteira (para deploy)
-PRIVATE_KEY=sua_chave_privada_aqui
+# Private key of your wallet (for deployment)
+PRIVATE_KEY=your_private_key_here
 
-# RPC da rede Mumbai (já configurado)
+# Mumbai network RPC (already configured)
 POLYGON_MUMBAI_RPC=https://rpc-mumbai.maticvigil.com
 
-# Endereço do contrato (será preenchido após deploy)
+# Contract address (will be filled after deployment)
 NEXT_PUBLIC_CONTRACT_ADDRESS=
 
-# Chain ID da rede Mumbai
+# Mumbai network Chain ID
 NEXT_PUBLIC_CHAIN_ID=80001
 ```
 
-### 4. Deploy do Smart Contract
+### 4. Smart Contract Deployment
 
 ```bash
-# Compilar contrato
+# Compile contract
 npm run compile
 
-# Executar testes
+# Run tests
 npm run test
 
-# Deploy na rede Mumbai
+# Deploy to Mumbai network
 npm run deploy:mumbai
 ```
 
-Após o deploy, copie o endereço do contrato e adicione ao arquivo `.env`:
+After deployment, copy the contract address and add to `.env` file:
 
 ```env
 NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
 ```
 
-### 5. Executar Frontend
+### 5. Run Frontend
 
 ```bash
-# Modo desenvolvimento
+# Development mode
 npm run dev
 
-# Ou build para produção
+# Or build for production
 npm run build
 npm start
 ```
 
-Acesse: http://localhost:3000
+Access: http://localhost:3000
 
-## 📱 Como Usar
+## 📱 How to Use
 
-### 1. Configurar MetaMask
+### 1. Configure MetaMask
 
-> 🦊 **Para configuração detalhada**: Consulte o [**Guia Completo MetaMask**](./GuideForMetaMask.md) que explica:
-> - Como criar carteiras separadas para desenvolvimento vs uso real
-> - Configuração de segurança e boas práticas
-> - Como obter e configurar chaves privadas
-> - Solução de problemas comuns
+> 🦊 **For detailed configuration**: Check the [**Complete MetaMask Guide**](./GuideForMetaMask.md) that explains:
+> - How to create separate wallets for development vs real use
+> - Security configuration and best practices
+> - How to obtain and configure private keys
+> - Common troubleshooting
 
-**Configuração Rápida:**
-1. Instale a extensão MetaMask
-2. Adicione a rede Polygon Mumbai:
-   - **Nome**: Polygon Mumbai Testnet
+**Quick Configuration:**
+1. Install MetaMask extension
+2. Add Polygon Mumbai network:
+   - **Name**: Polygon Mumbai Testnet
    - **RPC URL**: https://rpc-mumbai.maticvigil.com
    - **Chain ID**: 80001
-   - **Símbolo**: MATIC
+   - **Symbol**: MATIC
    - **Explorer**: https://mumbai.polygonscan.com
 
-### 2. Obter MATIC de Teste
+### 2. Get Test MATIC
 
-Visite o [Polygon Faucet](https://faucet.polygon.technology/) e solicite MATIC gratuitos para sua carteira.
+Visit the [Polygon Faucet](https://faucet.polygon.technology/) and request free MATIC for your wallet.
 
-### 3. Conectar Carteira
+### 3. Connect Wallet
 
-1. Clique em "Conectar MetaMask"
-2. Aprove a conexão
-3. Confirme a troca para a rede Mumbai se solicitado
+1. Click "Connect MetaMask"
+2. Approve the connection
+3. Confirm switching to Mumbai network if requested
 
-### 4. Registrar Documento
+### 4. Register Document
 
-1. Insira o nome do documento
-2. Selecione o arquivo
-3. Clique em "Registrar Documento"
-4. Confirme a transação no MetaMask
-5. Aguarde a confirmação na blockchain
+1. Enter document name
+2. Select file
+3. Click "Register Document"
+4. Confirm transaction in MetaMask
+5. Wait for blockchain confirmation
 
-### 5. Verificar Documento
+### 5. Verify Document
 
-1. Cole o hash do documento no campo de consulta
-2. Clique em "Consultar"
-3. Visualize as informações se o documento estiver registrado
+1. Paste document hash in query field
+2. Click "Query"
+3. View information if document is registered
 
-### 6. Transferir Propriedade
+### 6. Transfer Ownership
 
-1. Insira o hash do documento
-2. Insira o endereço de destino
-3. Clique em "Transferir Propriedade"
-4. Confirme a transação
+1. Enter document hash
+2. Enter destination address
+3. Click "Transfer Ownership"
+4. Confirm transaction
 
-## 🧪 Testes
+## 🧪 Tests
 
 ```bash
-# Executar todos os testes
+# Run all tests
 npm test
 
-# Executar com cobertura
+# Run with coverage
 npx hardhat coverage
 ```
 
-## 📊 Exemplo de Uso
+## 📊 Usage Example
 
-### Cenário: Registro de Contrato
+### Scenario: Contract Registration
 
-1. **Upload**: Empresa A faz upload de um contrato PDF
-2. **Hash**: Sistema calcula SHA-256: `a1b2c3d4e5f6...`
-3. **Registro**: Transação registra hash na blockchain
-4. **Verificação**: Qualquer pessoa pode verificar a autenticidade
-5. **Transferência**: Empresa A transfere para Empresa B
+1. **Upload**: Company A uploads a PDF contract
+2. **Hash**: System calculates SHA-256: `a1b2c3d4e5f6...`
+3. **Registration**: Transaction registers hash on blockchain
+4. **Verification**: Anyone can verify authenticity
+5. **Transfer**: Company A transfers to Company B
 
-### Vantagens
+### Advantages
 
-- ✅ **Imutabilidade**: Registros não podem ser alterados
-- ✅ **Transparência**: Qualquer um pode verificar
-- ✅ **Baixo Custo**: Mumbai testnet é gratuita
-- ✅ **Descentralização**: Sem ponto único de falha
-- ✅ **Timestamping**: Prova de existência temporal
+- ✅ **Immutability**: Records cannot be altered
+- ✅ **Transparency**: Anyone can verify
+- ✅ **Low Cost**: Mumbai testnet is free
+- ✅ **Decentralization**: No single point of failure
+- ✅ **Timestamping**: Proof of temporal existence
 
-## 🔧 Desenvolvimento
+## 🔧 Development
 
-### Estrutura do Projeto
+### Project Structure
 
 ```
 blockchaindemo/
-├── contracts/          # Smart contracts Solidity
-├── scripts/            # Scripts de deploy
-├── test/               # Testes automatizados
-├── pages/              # Páginas Next.js
-├── components/         # Componentes React
-├── styles/             # Estilos CSS
-├── hardhat.config.js   # Configuração Hardhat
-└── package.json        # Dependências
+├── contracts/          # Solidity smart contracts
+├── scripts/            # Deployment scripts
+├── test/               # Automated tests
+├── pages/              # Next.js pages
+├── components/         # React components
+├── styles/             # CSS styles
+├── hardhat.config.js   # Hardhat configuration
+└── package.json        # Dependencies
 ```
 
-### Smart Contract Principal
+### Main Smart Contract
 
 ```solidity
-// Principais funções do DocumentRegistry.sol
+// Main functions of DocumentRegistry.sol
 function registerDocument(string _hash, string _name) public
 function isDocumentRegistered(string _hash) public view returns (bool)
 function getDocument(string _hash) public view returns (Document)
 function transferDocument(string _hash, address _newOwner) public
 ```
 
-### Comandos Úteis
+### Useful Commands
 
 ```bash
-# Compilar contratos
+# Compile contracts
 npx hardhat compile
 
-# Executar testes
+# Run tests
 npx hardhat test
 
-# Deploy local
+# Local deployment
 npx hardhat node
 npm run deploy:local
 
-# Verificar contrato (após deploy)
+# Verify contract (after deployment)
 npx hardhat verify --network mumbai <CONTRACT_ADDRESS>
 ```
 
-## 🌍 Redes Suportadas
+## 🌍 Supported Networks
 
-### Mumbai Testnet (Recomendado)
+### Mumbai Testnet (Recommended)
 - **Chain ID**: 80001
 - **RPC**: https://rpc-mumbai.maticvigil.com
-- **Explorador**: https://mumbai.polygonscan.com
+- **Explorer**: https://mumbai.polygonscan.com
 - **Faucet**: https://faucet.polygon.technology
 
-### Local (Desenvolvimento)
+### Local (Development)
 - **Chain ID**: 1337
 - **RPC**: http://localhost:8545
 
-## 🛡️ Segurança
+## 🛡️ Security
 
-- ✅ Validações de entrada nos contratos
-- ✅ Verificações de propriedade
-- ✅ Proteção contra reentrância
-- ✅ Eventos para auditoria
-- ✅ Testes abrangentes
+- ✅ Input validations in contracts
+- ✅ Ownership verifications
+- ✅ Reentrancy protection
+- ✅ Events for auditing
+- ✅ Comprehensive tests
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-1. Fork o projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
+1. Fork the project
+2. Create a branch for your feature
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 License
 
-MIT License - veja [LICENSE](LICENSE) para detalhes.
+MIT License - see [LICENSE](LICENSE) for details.
 
-## 🆘 Suporte
+## 🆘 Support
 
-### Problemas Comuns
+### Common Issues
 
-**"MetaMask não detectado"**
-- Instale a extensão MetaMask
-- Recarregue a página
+**"MetaMask not detected"**
+- Install MetaMask extension
+- Reload the page
 
-**"Rede incorreta"**
-- Configure a rede Mumbai no MetaMask
+**"Wrong network"**
+- Configure Mumbai network in MetaMask
 - Use Chain ID 80001
 
-**"Saldo insuficiente"**
-- Obtenha MATIC gratuitos no faucet
-- Aguarde alguns minutos
+**"Insufficient balance"**
+- Get free MATIC from faucet
+- Wait a few minutes
 
-**"Transação falhada"**
-- Verifique se tem MATIC suficiente
-- Tente aumentar o gas price
+**"Transaction failed"**
+- Check if you have enough MATIC
+- Try increasing gas price
 
-### Links Úteis
+### Useful Links
 
 - [MetaMask](https://metamask.io/)
 - [Polygon Faucet](https://faucet.polygon.technology/)
@@ -290,18 +290,18 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 - [Ethers.js Docs](https://docs.ethers.org/)
 - [Next.js Docs](https://nextjs.org/docs)
 
-## 🎓 Conceitos Aprendidos
+## 🎓 Learned Concepts
 
-Este projeto demonstra:
+This project demonstrates:
 
-- 📝 **Smart Contracts**: Desenvolvimento e deploy
-- 🔗 **Web3 Integration**: Frontend com blockchain
-- 🔐 **Cryptografia**: Hashing e verificação
-- 💰 **DeFi Basics**: Transações e gas
-- 🏗️ **DApp Architecture**: Padrões de desenvolvimento
-- 🧪 **Testing**: Testes automatizados
-- 🚀 **Deployment**: Deploy em testnet
+- 📝 **Smart Contracts**: Development and deployment
+- 🔗 **Web3 Integration**: Frontend with blockchain
+- 🔐 **Cryptography**: Hashing and verification
+- 💰 **DeFi Basics**: Transactions and gas
+- 🏗️ **DApp Architecture**: Development patterns
+- 🧪 **Testing**: Automated testing
+- 🚀 **Deployment**: Testnet deployment
 
 ---
 
-**Feito com ❤️ para demonstrar o poder da blockchain na autenticação de documentos**
+**Made with ❤️ to demonstrate the power of blockchain in document authentication**
